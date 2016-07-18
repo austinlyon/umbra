@@ -1,1 +1,38 @@
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #c93e3e;
+}
 
+#caster-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.caster {
+  font-family: cursive;
+  font-size: 150px;
+  font-weight: bold;
+  color: #EEEEEE;
+}
+
+#connection-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+#connection {
+  padding: 20px;
+  margin: 40px;
+  height: auto;
+}

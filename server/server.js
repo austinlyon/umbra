@@ -21,16 +21,34 @@ app.use(express.static(path.join(`${__dirname}/../client`)));
 app.get('/', imperio.init(),
   (req, res) => {
     if (req.imperio.isDesktop) {
-      res.render('./../client/index.html');
+      res.sendFile(path.join(`${__dirname}/../client/desktop.html`));
     } else {
-      res.render('./../client/index.html');
+      if (req.imperio.connected) {
+        res.sendFile(path.join(`${__dirname}/../client/mobileConn.html`));
+      } else {
+        res.sendFile(path.join(`${__dirname}/../client/mobile.html`));
+      }
+    }
+  }
+);
+// Nonce in URL
+app.get('/:nonce', imperio.init(),
+  (req, res) => {
+    if (req.imperio.isDesktop) {
+      res.sendFile(path.join(`${__dirname}/../client/desktop.html`));
+    } else {
+      if (req.imperio.connected) {
+        res.sendFile(path.join(`${__dirname}/../client/mobileConn.html`));
+      } else {
+        res.sendFile(path.join(`${__dirname}/../client/mobile.html`));
+      }
     }
   }
 );
 // 404 error on invalid endpoint
 app.get('*', (req, res) => {
   res.status(404)
-     .render('./../client/404.html');
+     .sendFile(path.join(`${__dirname}/../client/404.html`));
 });
 
 /* ----------------------------------
