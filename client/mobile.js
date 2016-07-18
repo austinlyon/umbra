@@ -53,7 +53,6 @@ function printGyroData(gyroObj) {
 function tapFeedback() {
   document.body.style.backgroundColor = 'lightblue';
   setTimeout(function() {
-    document.body.style.backgroundColor = 'lightgreen';
+    document.body.style.backgroundColor = '#c93e3e';
   }, 200);
-
 }

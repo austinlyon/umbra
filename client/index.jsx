@@ -31,25 +31,26 @@ const App = React.createClass({
   },
 
   setZeros(gyroData) {
-    console.log('We got the tap data!', gyroData);
+    // console.log('We got the tap data!', gyroData);
     this.setState({ zero: gyroData });
   },
 
   updateUmbra(gyroObj) {
-    //
+    // actual alpha and beta will be between 0 and 180/-180
     const actual = this.orientRawGyroData(gyroObj);
     const offsetInterval = 8;
     const offsetX = -actual.alpha * offsetInterval / 90;
     const offsetY = -actual.beta * offsetInterval / 90;
-    const blur = 10;
+    const blur = 50;
 
     let textShadows = '';
     const numShadows = 25;
     for (let i = 1; i < numShadows; i++) {
       textShadows += `${offsetX * i}px `;
       textShadows += `${offsetY * i}px `;
-      textShadows += `${blur * i / numShadows}px `;
-      textShadows += `rgba(20, 20, 20, ${1 - (0.8 - (0.8 / i))})`;
+      textShadows += `${blur * i / numShadows * Math.abs(offsetX) / 10}px `;
+      // textShadows += `rgba(20, 20, 20, ${1 - (0.8 - (0.8 / i))})`;
+      textShadows += 'rgba(40, 40, 40, 1)';
       if (i < numShadows - 1) textShadows += ', ';
     }
 
