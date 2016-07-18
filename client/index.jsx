@@ -31,7 +31,7 @@ const App = React.createClass({
   },
 
   setZeros(gyroData) {
-    // console.log('We got the tap data!', gyroData);
+    console.log('We got the tap data!', gyroData);
     this.setState({ zero: gyroData });
   },
 
@@ -41,6 +41,7 @@ const App = React.createClass({
     const offsetInterval = 8;
     const offsetX = -actual.alpha * offsetInterval / 90;
     const offsetY = -actual.beta * offsetInterval / 90;
+    const offsetDist = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
     const blur = 50;
 
     let textShadows = '';
@@ -48,7 +49,7 @@ const App = React.createClass({
     for (let i = 1; i < numShadows; i++) {
       textShadows += `${offsetX * i}px `;
       textShadows += `${offsetY * i}px `;
-      textShadows += `${blur * i / numShadows * Math.abs(offsetX) / 10}px `;
+      textShadows += `${blur * i / numShadows * Math.abs(offsetDist) / 10}px `;
       // textShadows += `rgba(20, 20, 20, ${1 - (0.8 - (0.8 / i))})`;
       textShadows += 'rgba(40, 40, 40, 1)';
       if (i < numShadows - 1) textShadows += ', ';
