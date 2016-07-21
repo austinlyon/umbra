@@ -2,15 +2,17 @@
 const express = require('express');
 const app = express();
 const server = require('http').Server(app); // eslint-disable-line
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 const path = require('path');
 const imperio = require('./../../imperioDev/index.js')(server);
+// const imperio = require('imperio')(server);
 
 /* ----------------------------------
  * -----   Global Middleware   ------
  * ---------------------------------- */
 
 app.use(express.static(path.join(`${__dirname}/../../imperioDev`)));
+// app.use(express.static(path.join(`${__dirname}/../node_modules/imperio`)));
 app.use(express.static(path.join(`${__dirname}/../client`)));
 
 /* ----------------------------------
@@ -20,9 +22,11 @@ app.use(express.static(path.join(`${__dirname}/../client`)));
  // App will serve up different pages for client & desktop
 app.get('/', imperio.init(),
   (req, res) => {
+    console.log('I just hit the server');
     if (req.imperio.isDesktop) {
       res.sendFile(path.join(`${__dirname}/../client/desktop.html`));
     } else {
+      console.log('in mobile');
       if (req.imperio.connected) {
         res.sendFile(path.join(`${__dirname}/../client/mobileConn.html`));
       } else {
@@ -50,6 +54,10 @@ app.get('*', (req, res) => {
   res.status(404)
      .sendFile(path.join(`${__dirname}/../client/404.html`));
 });
+
+/* ----------------------------------
+ * --------     Sockets      --------
+ * ---------------------------------- */
 
 /* ----------------------------------
  * --------      Server      --------

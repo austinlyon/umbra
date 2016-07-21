@@ -16,10 +16,10 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-    imperio.desktopRoomSetup(imperio.socket, imperio.room, this.updateConnInfo);
-    imperio.desktopRoomUpdate(imperio.socket, this.updateConnInfo);
-    imperio.desktopGyroHandler(imperio.socket, this.updateUmbra);
-    imperio.desktopTapHandler(imperio.socket, this.setZeros);
+    imperio.listenerRoomSetup(this.updateConnInfo);
+    imperio.roomUpdate(this.updateConnInfo);
+    imperio.gyroscopeListener(this.updateUmbra);
+    imperio.dataListener(this.setZeros);
   },
 
   /* ------------------------------------ */

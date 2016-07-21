@@ -14,7 +14,7 @@ var orient = {
 };
 var actual = {};
 
-imperio.mobileRoomSetup(imperio.socket, imperio.room, function(socket) {
+imperio.emitRoomSetup(function(socket) {
   var rooms = socket.rooms || 'no rooms';
   console.log('ROOMS AFTER MOBILE ROOM SETUP: ', rooms);
 });
@@ -26,10 +26,10 @@ document.body.addEventListener('touchend', function() {
   zero.beta = orient.beta;
   zero.gamma = orient.gamma;
   console.log('zero!', zero.alpha, zero.beta, zero.gamma);
-  imperio.mobileTapShare(imperio.socket, imperio.room, tapFeedback, zero);
+  imperio.emitData(tapFeedback, zero);
 });
 
-imperio.mobileGyroShare(imperio.socket, imperio.room, printGyroData);
+imperio.emitGyroscope(printGyroData);
 
 function printGyroData(gyroObj) {
   // store orientation in global object to help capture zero orientation
@@ -45,9 +45,9 @@ function printGyroData(gyroObj) {
   actual.beta = orient.beta - zero.beta;
   actual.gamma = orient.gamma - zero.gamma;
 
-  alphaBox.innerHTML = `${actual.alpha}`;
-  betaBox.innerHTML = `${actual.beta}`;
-  gammaBox.innerHTML = `${actual.gamma}`;
+  alphaBox.innerHTML = actual.alpha;
+  betaBox.innerHTML = actual.beta;
+  gammaBox.innerHTML = actual.gamma;
 }
 
 function tapFeedback() {
